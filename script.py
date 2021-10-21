@@ -4,9 +4,10 @@ import requests
 
 BASE_URL = 'https://pypi.org/project/'
 BASE_URL_SUFFIX = '/#files'
+INPUT_FILENAME = 'input.txt'
 
 urls = []
-with open('requirements.txt') as f:
+with open(INPUT_FILENAME) as f:
     for line in f:
         pkg_name, version = line.strip().split('==')
         url = f'{BASE_URL}{pkg_name}/{version}{BASE_URL_SUFFIX}'

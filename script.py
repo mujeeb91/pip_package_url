@@ -18,8 +18,8 @@ def get_download_url(url):
     response = requests.get(url, headers={'User-Agent': 'Mozilla/5.0'})
     content = response.content
     soup = BeautifulSoup(content, 'html.parser')
-    download_url = soup.find('table', class_='table--downloads')\
-        .tbody.find_all('tr', recursive=False)[-1].th.a.get('href')
+    download_url = soup.find('div', class_='card file__card')\
+        .a.get('href')
     return download_url
 
 def get_filename(url):

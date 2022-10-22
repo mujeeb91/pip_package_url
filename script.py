@@ -18,14 +18,18 @@ def get_download_url(url):
 def get_filename(url):
     return url.rsplit('/')[-1]
 
-def main():
+def get_package_urls(filename):
     urls = []
-    with open(INPUT_FILENAME) as f:
+    with open(filename) as f:
         for line in f:
             pkg_name, version = line.strip().split('==')
             url = f'{BASE_URL}{pkg_name}/{version}{BASE_URL_SUFFIX}'
             urls.append(url)
-    for url in urls:
+    return urls
+
+def main():
+    package_urls = get_package_urls(INPUT_FILENAME)
+    for url in package_urls:
         download_url = get_download_url(url)
         print(download_url)
 

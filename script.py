@@ -6,13 +6,6 @@ BASE_URL = 'https://pypi.org/project/'
 BASE_URL_SUFFIX = '/#files'
 INPUT_FILENAME = 'input.txt'
 
-urls = []
-with open(INPUT_FILENAME) as f:
-    for line in f:
-        pkg_name, version = line.strip().split('==')
-        url = f'{BASE_URL}{pkg_name}/{version}{BASE_URL_SUFFIX}'
-        urls.append(url)
-
 
 def get_download_url(url):
     response = requests.get(url, headers={'User-Agent': 'Mozilla/5.0'})
@@ -25,6 +18,16 @@ def get_download_url(url):
 def get_filename(url):
     return url.rsplit('/')[-1]
 
-for url in urls:
-    download_url = get_download_url(url)
-    print(download_url)
+def main():
+    urls = []
+    with open(INPUT_FILENAME) as f:
+        for line in f:
+            pkg_name, version = line.strip().split('==')
+            url = f'{BASE_URL}{pkg_name}/{version}{BASE_URL_SUFFIX}'
+            urls.append(url)
+    for url in urls:
+        download_url = get_download_url(url)
+        print(download_url)
+
+if __name__ == "__main__":
+    main()
